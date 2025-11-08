@@ -7,13 +7,16 @@ import {
 
 import { useTRPC } from "@/trpc/client";
 
+import { useWorkflowsParams } from "./use-workflows-params";
+
 /**
  * Hook to fetch all workflows use suspense
  */
 export const useSuspenseWorkflows = () => {
     const trpc = useTRPC();
+    const [params] = useWorkflowsParams();
 
-    return useSuspenseQuery(trpc.workflows.getMany.queryOptions());
+    return useSuspenseQuery(trpc.workflows.getMany.queryOptions(params));
 };
 
 /**
@@ -27,7 +30,7 @@ export const useCreateWorkflow = () => {
         onSuccess: (data) => {
             toast.success(`Workflow "${data.name}" created`);
             queryClient.invalidateQueries(
-                trpc.workflows.getMany.queryOptions(),
+                trpc.workflows.getMany.queryOptions({}),
             );
         },
         onError: (error) => {
