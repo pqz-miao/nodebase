@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 import { authClient } from "@/lib/auth-client";
-import { useHasActiveSubscription } from "@/features/auth/components/subscriptions/hooks/use-subscription";
+import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscription";
 import {
     Sidebar,
     SidebarContent,
