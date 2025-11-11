@@ -16,7 +16,7 @@ interface Props {
 
 export const WorkflowNode = ({
     children,
-    showToolbar,
+    showToolbar = true,
     onDelete,
     onSettings,
     name,
