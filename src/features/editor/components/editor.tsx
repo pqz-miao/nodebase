@@ -1,7 +1,7 @@
 "use client";
 
 import { useSetAtom } from "jotai";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import {
     type Node,
     type Edge,
@@ -18,11 +18,13 @@ import {
     Panel,
 } from "@xyflow/react";
 
+import { NodeType } from "@/generated/prisma/enums";
 import { nodeComponents } from "@/config/node-components";
 import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows";
 
 import { editorAtom } from "../store/atoms";
 import { AddNodeButton } from "./add-node-button";
+import { ExecuteWorkflowButton } from "./execute-workflow-button";
 
 import "@xyflow/react/dist/style.css";
 
@@ -56,6 +58,10 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
         [],
     );
 
+    const hasManualTrigger = useMemo(() => {
+        return nodes.some((node) => node.type === NodeType.MANUAL_TRIGGER);
+    }, [nodes]);
+
     return (
         <div className="size-full">
             <ReactFlow
@@ -82,6 +88,11 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
                 <Panel position="top-right">
                     <AddNodeButton />
                 </Panel>
+                {hasManualTrigger && (
+                    <Panel position="bottom-center">
+                        <ExecuteWorkflowButton workflowId={workflowId} />
+                    </Panel>
+                )}
             </ReactFlow>
         </div>
     );
