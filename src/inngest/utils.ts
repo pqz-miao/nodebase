@@ -7,7 +7,7 @@ export const topologicalSort = (
     connections: Connection[],
 ): Node[] => {
     // If no connections, return node as-is (they're all independent)
-    if (nodes.length === 0) {
+    if (connections.length === 0) {
         return nodes;
     }
 
