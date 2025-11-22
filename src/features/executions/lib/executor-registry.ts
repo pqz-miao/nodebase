@@ -4,7 +4,7 @@ import { manualTriggerExecutor } from "@/features/triggers/components/manual-tri
 import { NodeExecutor } from "../types";
 import { httpRequestExecutor } from "../components/http-request/executor";
 
-export const executorRegistry: Record<NodeType, NodeExecutor> = {
+export const executorRegistry: Record<NodeType, NodeExecutor<any>> = {
     [NodeType.MANUAL_TRIGGER]: manualTriggerExecutor,
     [NodeType.INITIAL]: manualTriggerExecutor,
     [NodeType.HTTP_REQUEST]: httpRequestExecutor,
